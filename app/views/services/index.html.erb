@@ -4,6 +4,22 @@
 
 	<h2>You can use these accounts to sign in</h2>
 	
+	<% if session[:service_id].blank? && session[:user_id] %>
+  <div class="service_in_use round">  
+      <div class="service_img">
+				<%= image_tag "identity_64.png", :size => "64x64" %>
+	    </div>
+	
+	  <div class="service_userdata">
+			<%= current_user.email %>
+			<br />
+			**********
+		  <br />
+			<span>Signed in</span>
+	  </div>
+  </div>	
+	<% end %>
+	
 	<% @services.each do |service| %>  
 		  <div class="service_in_use round">  
 		      <div class="service_img">
@@ -15,7 +31,7 @@
 			  </div>
 			
 			  <div class="service_userdata">
-			    <% if service.uid.starts_with?('http') %>
+			  <% if service.uid.starts_with?('http') %>
 					<%= service.uid.scan(/http[s]*:\/\/.*?\//)[0] %>
 				<% else %>
 					<%= service.provider.capitalize %>: <%= service.uid %>
@@ -29,7 +45,7 @@
 					<%= link_to "Remove this service", service, :confirm => 'Are you sure you want to remove this authentication?', :method => :delete, :class => "remove" %>
 				<% end %>
 			  </div>
-		  </div>  
+		  </div>
 	<% end %>
 
 

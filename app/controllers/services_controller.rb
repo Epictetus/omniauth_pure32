@@ -33,6 +33,9 @@ class ServicesController < ApplicationController
       @newuser.email = session[:authhash][:email]
       @newuser.services.build(:provider => session[:authhash][:provider], :uid => session[:authhash][:uid], :uname => session[:authhash][:name], :uemail => session[:authhash][:email])
       
+      # password is not relevant in this case
+      @newuser.password = @newuser.password_confirmation = SecureRandom.hex(16)
+      
       if @newuser.save!
         # signin existing user
         # in the session his user id and the service id used for signing in is stored
@@ -93,6 +96,11 @@ class ServicesController < ApplicationController
         omniauth['user_info']['name'] ? @authhash[:name] =  omniauth['user_info']['name'] : @authhash[:name] = ''
         omniauth['uid'] ? @authhash[:uid] = omniauth['uid'].to_s : @authhash[:uid] = ''
         omniauth['provider'] ? @authhash[:provider] = omniauth['provider'] : @authhash[:provider] = ''
+      elsif service_route == 'identity'
+        @authhash[:uid] = '' # force skip of services check
+        omniauth['user_info']['email'] ? @authhash[:email] =  omniauth['user_info']['email'] : @authhash[:email] = ''
+        # .to_is is a hack around issue #364: https://github.com/intridea/omniauth/pull/364
+        omniauth['provider'] ? @authhash[:provider] = omniauth['provider'].to_s : @authhash[:provider] = ''
       else        
         # debug to output the hash that has been returned when adding new services
         render :text => omniauth.to_yaml
@@ -100,7 +108,7 @@ class ServicesController < ApplicationController
       end 
       
       if @authhash[:uid] != '' and @authhash[:provider] != ''
-        
+
         auth = Service.find_by_provider_and_uid(@authhash[:provider], @authhash[:uid])
 
         # if the user is currently signed in, he/she might want to add another account to signin
@@ -127,6 +135,15 @@ class ServicesController < ApplicationController
             session[:authhash] = @authhash
             render signup_services_path
           end
+        end
+      elsif @authhash[:provider] == 'identity'
+        user = User.find_by_email(params[:auth_key])
+        if user && user.authenticate(params[:password])
+          session[:user_id] = user.id
+          redirect_to root_url, :notice => 'Signed in successfully via ' + @authhash[:provider].capitalize + '.'
+        else
+          flash[:error] =  'Error while authenticating via ' + service_route + '/' + @authhash[:provider].capitalize + '. Invalid email or password.'
+          redirect_to signin_path, 
         end
       else
         flash[:error] =  'Error while authenticating via ' + service_route + '/' + @authhash[:provider].capitalize + '. The service returned invalid data for the user id.'

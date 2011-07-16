@@ -67,7 +67,7 @@ nav ul li.selected a { color: #c81419; }
 /* manage your services */
 #services_manage {}
 
-.service_in_use { background-color: #dddddd; height: 64px; width: 300px; margin-bottom: 10px; padding: 5px; }
+.service_in_use { background-color: #dddddd; height: 64px; width: 320px; margin-bottom: 10px; padding: 5px; }
 .service_img { float: left; }
 .service_userdata { font-size: 12px; line-height: 1.1em; margin-left: 80px; padding-top: 6px;}
 .service_userdata span { color: #c81419; }
