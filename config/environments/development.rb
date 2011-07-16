@@ -36,8 +36,8 @@ OmniauthDemo::Application.configure do
     provider :identity, :fields => [:email], :model => User
     
     # providers with id/secret, you need to sign up for their services (see below) and enter the parameters here
-    provider :facebook, '118915484867260', '0e11c4c346eb34a1cb6da26a5f5e4c69'
-    provider :twitter, 'rEOXsU5nLF2iNlftVIUSWQ', 'Q7SPusbwTR3W3NXU9MeJIOTlmgKx7q9SXVtVSAuSfA'
+    provider :facebook, 'APP_ID', 'APP_SECRET'
+    provider :twitter, 'CONSUMER_KEY', 'CONSUMER_SECRET'
     provider :github, 'CLIENT ID', 'SECRET'
     
     # generic openid
