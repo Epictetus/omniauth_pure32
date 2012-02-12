@@ -1,5 +1,5 @@
 class ServicesController < ApplicationController
-  before_filter :authenticate_user!, :except => [:create, :signin, :signup, :newaccount, :failure]
+  before_filter :authenticate_user!, :except => [:create, :signin, :signup, :newaccount, :failure, :signout]
   protect_from_forgery :except => :create     
 
   # GET all authentication services assigned to the current user

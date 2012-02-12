@@ -4,7 +4,9 @@
 
 ### \*\*\* Important \*\*\*
 
-This fork upgrades the origin project to Rails 3.1.rc and OmniAuth 1.0-beta. I forked this projects because I wanted to integrate the new `oa-identity` gem, which is new in 1.0-beta. This gem provides traditional login/password registration and authentication.
+This fork upgrades the origin project to Rails 3.2.1 and OmniAuth 1.0. I have added some tests to the code using RSpec and Capybara
+to provide some level of confidence that the code 'does the right thing'
+
 
 ## Article
 
