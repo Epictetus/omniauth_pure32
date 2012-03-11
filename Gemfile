@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.1'
+gem 'rails', '~> 3.2.1'
 gem 'omniauth'
 gem 'omniauth-identity'
 gem 'omniauth-openid'
@@ -20,7 +20,5 @@ group :development, :test do
   gem 'sqlite3'
 	gem 'rspec-rails'
 	gem 'capybara'
-end
-
-group :test do
+	gem 'simplecov', :require => false
 end

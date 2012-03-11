@@ -36,35 +36,35 @@ end
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   # ALWAYS RESTART YOUR SERVER IF YOU MAKE CHANGES TO THESE SETTINGS!
-  
+
   # you need a store for OpenID; (if you deploy on heroku you need Filesystem.new('./tmp') instead of Filesystem.new('/tmp'))
   require 'openid/store/filesystem'
-  
+
   # load certificates
   require "openid/fetchers"
   OpenID.fetcher.ca_file = "#{Rails.root}/config/ca-bundle.crt"
-  
+
   # identity
   provider :identity, :fields => [:email], :model => User
-  
+
   # providers with id/secret, you need to sign up for their services (see below) and enter the parameters here
   provider :facebook, 'APP_ID', 'APP_SECRET'
   provider :twitter, 'CONSUMER_KEY', 'CONSUMER_SECRET'
   provider :github, 'CLIENT ID', 'SECRET'
-    
-  
+
+
   # generic openid
   provider :openid, :store => OpenID::Store::Filesystem.new('/tmp'), :name => 'open_id'
-  
+
   # dedicated openid
   provider :openid, :store => OpenID::Store::Filesystem.new('/tmp'), :name => 'google', :identifier => 'https://www.google.com/accounts/o8/id'
   # provider :google_apps, OpenID::Store::Filesystem.new('./tmp'), :name => 'google_apps'
   # /auth/google_apps; you can bypass the prompt for the domain with /auth/google_apps?domain=somedomain.com
-  
-  provider :openid, :store => OpenID::Store::Filesystem.new('/tmp'), :name => 'yahoo', :identifier => 'yahoo.com' 
+
+  provider :openid, :store => OpenID::Store::Filesystem.new('/tmp'), :name => 'yahoo', :identifier => 'yahoo.com'
   provider :openid, :store => OpenID::Store::Filesystem.new('/tmp'), :name => 'aol', :identifier => 'openid.aol.com'
   provider :openid, :store => OpenID::Store::Filesystem.new('/tmp'), :name => 'myopenid', :identifier => 'myopenid.com'
-  
+
   # Sign-up urls for Facebook, Twitter, and Github
   # https://developers.facebook.com/setup
   # https://github.com/account/applications/new
@@ -75,7 +75,7 @@ OmniAuth.config.test_mode = true
 
 OmniAuth.config.mock_auth[:facebook] = {
     'provider' => 'facebook',
-    'uid' => '123545',
+    'uid' => '12345',
     'extra' => {
       'raw_info' => {
         'email' => "joe@example.com",
@@ -83,3 +83,31 @@ OmniAuth.config.mock_auth[:facebook] = {
       }
     }
   }
+
+OmniAuth.config.mock_auth[:github] = {
+    'provider' => 'github',
+    'uid' => '54321',
+    'info' => {
+      'email' => "joe@example.com",
+      'name' => "Joe Q Public"
+    }
+  }
+
+OmniAuth.config.mock_auth[:yahoo] = {
+    'provider' => 'yahoo',
+    'uid' => '33333',
+    'info' => {
+      'email' => "joe@example.com",
+      'name' => "Joe Q Public"
+    }
+  }
+
+OmniAuth.config.mock_auth[:aol] = {
+    'provider' => 'aol',
+    'uid' => '44444',
+    'info' => {
+      'email' => "joe@example.com"
+    }
+  }
+
+OmniAuth.config.mock_auth[:twitter] = :invalid_credentials
