@@ -1,12 +1,19 @@
 # OmniAuth Pure
 
+[![Build Status](https://secure.travis-ci.org/msimkins/omniauth_pure32.png)](http://travis-ci.org/msimkins/omniauth_pure32)
+
 ## Fork Details
 
 ### \*\*\* Important \*\*\*
 
-This fork upgrades the origin project to Rails 3.2.1 and OmniAuth 1.0. I have added some tests to the code using RSpec and Capybara
+This fork upgrades the origin project to Rails 3.2.2 and OmniAuth 1.0.x. I have added some tests to the code using RSpec and Capybara
 to provide some level of confidence that the code 'does the right thing'
 
+### \*\*\* Ruby Versions Supported \*\*\*
+
+Currently this has only been tested under MRI Rubies 1.9.2 +
+
+If you wish to patch it to use JRuby or Rubinius, please feel free to fork this, and send me a pull request.
 
 ## Article
 
