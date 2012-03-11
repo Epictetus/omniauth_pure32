@@ -7,5 +7,5 @@ rvm:
   - ruby-head
   - jruby-head
 
-before-script: rake db:migrate
-script: rake
+
+script: 'rake db:migrate; rake'
