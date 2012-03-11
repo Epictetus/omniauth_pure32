@@ -6,3 +6,6 @@ rvm:
   - rbx-19mode
   - ruby-head
   - jruby-head
+
+before-script: rake db:migrate
+script: rake
